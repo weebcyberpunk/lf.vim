@@ -34,8 +34,7 @@ if g:lf_hijack_netrw == 1
     " https://github.com/preservim/nerdtree
     augroup LfHijackNetrw
         autocmd VimEnter * silent! autocmd! FileExplorer
-        autocmd VimEnter * call lf#CheckDir(expand('<amatch>'))
-        autocmd BufEnter * call lf#CheckDir(expand('<amatch>'), 1)
+        autocmd BufEnter,VimEnter * call lf#CheckDir(expand('<amatch>'))
     augroup END
 
 endif

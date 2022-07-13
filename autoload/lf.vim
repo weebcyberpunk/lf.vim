@@ -18,12 +18,12 @@ function! lf#AfterCloseLf(change)
 
     " make sure to close lf buffer
     if bufexists(l:buf_to_close)
-        execute 'bd' l:buf_to_close
+        execute 'bd!' l:buf_to_close
     endif
 
 endfunction
 
-function! lf#Lf(change, path='', fromcli=0)
+function! lf#Lf(change, path='')
 
     " we need to be sure that theese files aren't there
     call system('rm /tmp/lfvim-lastdir /tmp/lfvim-selection')
@@ -32,26 +32,24 @@ function! lf#Lf(change, path='', fromcli=0)
     " make sure lf buffer will be deleted on close
     setlocal bufhidden=wipe
 
-    " if from cli, delete the buffer created with dirname
-    bd #
-
     " we need to make this because a:change get out of scope inside the autocmd
-    " on other programming languages this would look extremely awful but on Vim
-    " Script it is what it is
-    if a:change == 1
-        autocmd TermClose <buffer> call lf#AfterCloseLf(1)
-    elseif a:change == 0
-        autocmd TermClose <buffer> call lf#AfterCloseLf(0)
-    endif
+    execute 'autocmd TermClose <buffer> call lf#AfterCloseLf('a:change ','a:fromcli ')'
 
     normal a
 
+    " deletes that buffer that gets created when trying to edit a directory
+    if bufexists(a:path)
+        execute 'bd!' bufnr(a:path)
+    endif
+
 endfunction
 
-function! lf#CheckDir(dir, fromcli=0)
+function! lf#CheckDir(dir)
+
     if !isdirectory(a:dir)
         return
     endif
     
-    call lf#Lf(g:lf_change_cwd, a:dir, a:fromcli)
+    call lf#Lf(g:lf_change_cwd, a:dir)
+
 endfunction
