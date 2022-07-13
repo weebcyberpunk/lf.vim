@@ -3,6 +3,7 @@
 " Last Change:  13 July 2022
 " Mainteiner:   GG https://github.com/weebcyberpunk
 " Location:     plugin/lf.vim
+" License:      MIT
 
 if exists('g:autoloaded_lf')
     finish
