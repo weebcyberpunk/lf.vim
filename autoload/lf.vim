@@ -33,7 +33,7 @@ function! lf#Lf(change, path='')
     setlocal bufhidden=wipe
 
     " we need to make this because a:change get out of scope inside the autocmd
-    execute 'autocmd TermClose <buffer> call lf#AfterCloseLf('a:change ','a:fromcli ')'
+    execute 'autocmd TermClose <buffer> call lf#AfterCloseLf('a:change ')'
 
     normal a
 
