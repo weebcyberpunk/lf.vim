@@ -13,7 +13,7 @@ let g:autoloaded_lf = 1
 " Section:       config
 
 if !exists('g:lf_change_cwd')
-    let g:lf_change_cwd=1
+    let g:lf_change_cwd=0
 endif
 
 " Section:      commands
