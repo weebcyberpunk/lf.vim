@@ -15,15 +15,25 @@ function! lf#AfterCloseLf(change)
     else
         bp
     endif
-    execute 'bd' l:buf_to_close
+
+    " make sure to close lf buffer
+    if bufexists(l:buf_to_close)
+        execute 'bd' l:buf_to_close
+    endif
 
 endfunction
 
-function! lf#Lf(change)
+function! lf#Lf(change, path='', fromcli=0)
 
     " we need to be sure that theese files aren't there
     call system('rm /tmp/lfvim-lastdir /tmp/lfvim-selection')
-    term lf -last-dir-path /tmp/lfvim-lastdir -selection-path /tmp/lfvim-selection
+    execute 'term' 'lf -last-dir-path /tmp/lfvim-lastdir -selection-path /tmp/lfvim-selection' a:path
+
+    " make sure lf buffer will be deleted on close
+    setlocal bufhidden=wipe
+
+    " if from cli, delete the buffer created with dirname
+    bd #
 
     " we need to make this because a:change get out of scope inside the autocmd
     " on other programming languages this would look extremely awful but on Vim
@@ -36,4 +46,12 @@ function! lf#Lf(change)
 
     normal a
 
+endfunction
+
+function! lf#CheckDir(dir, fromcli=0)
+    if !isdirectory(a:dir)
+        return
+    endif
+    
+    call lf#Lf(g:lf_change_cwd, a:dir, a:fromcli)
 endfunction

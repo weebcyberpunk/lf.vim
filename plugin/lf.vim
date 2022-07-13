@@ -16,8 +16,26 @@ if !exists('g:lf_change_cwd')
     let g:lf_change_cwd=0
 endif
 
+if !exists('g:lf_hijack_netrw')
+    let g:lf_hijack_netrw = 1
+endif
+
 " Section:      commands
 
-command! Lf call lf#Lf(g:lf_change_cwd)
-command! LfNoChangeCwd call lf#Lf(0)
-command! LfChangeCwd call lf#Lf(1)
+command! -complete=file -nargs=* Lf call lf#Lf(g:lf_change_cwd, <q-args>)
+command! -complete=file -nargs=* LfNoChangeCwd call lf#Lf(0, <q-args>)
+command! -complete=file -nargs=* LfChangeCwd call lf#Lf(1, <q-args>)
+
+" Section:      netrw hijack
+
+if g:lf_hijack_netrw == 1
+
+    " this is basically a copy of the netrw hijack from nerdtree
+    " https://github.com/preservim/nerdtree
+    augroup LfHijackNetrw
+        autocmd VimEnter * silent! autocmd! FileExplorer
+        autocmd VimEnter * call lf#CheckDir(expand('<amatch>'))
+        autocmd BufEnter * call lf#CheckDir(expand('<amatch>'), 1)
+    augroup END
+
+endif
