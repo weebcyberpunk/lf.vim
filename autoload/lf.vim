@@ -12,8 +12,6 @@ function! lf#AfterCloseLf(change)
     if !empty(l:file)
         execute 'edit' l:file
         filetype detect " for some reason it didn't run filetype normally
-    else
-        bp
     endif
 
     " make sure to close lf buffer
