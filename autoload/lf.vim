@@ -7,7 +7,7 @@ function! lf#AfterCloseLf(change)
     let l:file=system('cat /tmp/lfvim-selection 2> /dev/null')
     
     if a:change == 1 && !empty(l:dir)
-        execute 'cd' l:dir
+        execute g:lf_change_cwd_cmd l:dir
     endif
     if !empty(l:file)
         execute 'edit' l:file

@@ -21,6 +21,10 @@ if !exists('g:lf_hijack_netrw')
     let g:lf_hijack_netrw = 1
 endif
 
+if !exists('g:lf_change_cwd_cmd')
+    let g:lf_change_cwd_cmd = 'cd'
+endif
+
 " Section:      commands
 
 command! -complete=file -nargs=* Lf call lf#Lf(g:lf_change_cwd, <q-args>)
