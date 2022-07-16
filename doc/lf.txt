@@ -45,9 +45,12 @@ SETTINGS                                                      *lf.vim-settings*
 
 *g:lf_change_cwd*       If 0 (default), |Lf| will not change the Vim `cwd` by
                       default. If 1, it'll change.
+
 *g:lf_hijack_netrw*     If 1 (default), |Lf| will hijack netrw, becaming the
                       default to explore directories. If 0, |Lf| will not 
                       hijack netrw. 
+
+*g:lf_change_cwd_cmd*   Defines the Vim |cd| command. Defaults to |tcd|.
 
 ------------------------------------------------------------------------------
 vim:tw=78:ts=4:ft=help:norl: 

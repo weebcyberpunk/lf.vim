@@ -18,4 +18,6 @@ To config the plugin, two variables are provided:
 - `g:lf_change_cwd`, set to 1 to default the `Lf` command to changing the Vim
   `cwd` or 0 to default it to not change.  
 - `g:lf_hijack_netrw`, set to 1 (default) to hijack netrw, and 0 to don't hijack
-  it.
+  it.  
+- `g:lf_change_cwd_cmd`, sets the Vim command to change the `cwd`. Defaults to
+  `cd`.
